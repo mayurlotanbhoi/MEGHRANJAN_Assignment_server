@@ -2,12 +2,16 @@ const pool = require("../DB_Connections/mySql_Connection");
 
 module.exports = {
   getproductDetails: (data, callback) => {
-    pool.query("SELECT * FROM cart", (error, result, field) => {
-      if (error) return callback(error);
+    pool.query(
+      "SELECT * FROM saree WHERE Category = ?",
+      [data],
+      (error, result, field) => {
+        if (error) return callback(error);
 
-      console.log(result);
+        // console.log(result);
 
-      return callback(null, result);
-    });
+        return callback(null, result);
+      }
+    );
   },
 };

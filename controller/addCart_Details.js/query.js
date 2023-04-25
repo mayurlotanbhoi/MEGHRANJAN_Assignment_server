@@ -2,19 +2,26 @@ const pool = require("../DB_Connections/mySql_Connection");
 
 module.exports = {
   creatCart: (postedData, callback) => {
+    console.log(postedData);
     pool.query(
-      "INSERT INTO cart (imageLink, ProductName, ProductPrice, ProductColor,ProductSize) VALUES (?,?,?,?,?)",
+      "INSERT INTO saree (ProductName, Price, Color, Size, imageLink, Category, discount, DeliverCondition, brand, ShortDescription, FulleDscription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
-        postedData.imageLink,
         postedData.ProductName,
-        postedData.ProductPrice,
-        postedData.ProductColor,
-        postedData.ProductSize,
+        postedData.Price,
+        postedData.Color,
+        postedData.Size,
+        postedData.imageLink,
+        postedData.Category,
+        postedData.discount,
+        postedData.DeliverCondition,
+        postedData.brand,
+        postedData.ShortDescription,
+        postedData.FulleDscription,
       ],
       (error, result, field) => {
-        // console.log(error);
-        if (error) return callback(error);
-
+        if (error) {
+          return callback(error);
+        }
         return callback(null, result);
       }
     );

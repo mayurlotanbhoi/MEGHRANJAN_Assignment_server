@@ -26,26 +26,28 @@ const upload = multer({ storage: storage });
 
 module.exports = {
   creatCartLogic: (req, res) => {
+    console.log(req.body);
+
     upload.single("myfile")(req, res, (err) => {
       if (err) {
         res.status(500).json({ message: err.message });
-        return;
+        // return;
       }
-      console.log(req.file);
-
+      // console.log(req.file);
       const body = req.body;
-      const imagePath = req.file.path; // get the file path
-      body.imageLink = imagePath; // add the file path to the request body
+      // console.log(body);
+      const imagePath = req.file.path;
 
-      // body.imageLink = commpresImagePath;
+      console.log(imagePath);
+      body.imageLink = imagePath;
 
       creatCart(body, (error, result) => {
         if (error) {
+          console.log(error.message);
           res.status(404).json({ sms: "card not added" });
           return;
         }
-
-        res.status(303).json({ sms: "card is added succesfully" });
+        res.status(201).json({ sms: result });
       });
     });
   },
